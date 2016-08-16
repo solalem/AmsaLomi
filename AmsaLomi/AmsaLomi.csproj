@@ -184,6 +184,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AmsaLomiContext.cs" />
+    <Compile Include="Models\AmsaLomiInitializer.cs" />
+    <Compile Include="Models\AmsaLomiModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
