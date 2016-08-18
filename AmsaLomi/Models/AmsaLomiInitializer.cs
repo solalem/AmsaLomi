@@ -10,7 +10,9 @@ namespace AmsaLomi.Models
         protected override void Seed(AmsaLomiContext context)
         {
             // Add Ethiopia as a country
-            var countries = new List<CountryProfile> { new Models.CountryProfile() { Name = "Ethiopia", Description = "An East African nation with population about 100 million" } };
+            var countries = new List<CountryProfile> {
+                new Models.CountryProfile() { Name = "Ethiopia", Description = "An East African nation with population about 100 million" },
+                new Models.CountryProfile() { Name = "Eritrea", Description = "An East African nation with population about 10 million" } };
             countries.ForEach(s => context.CountryProfiles.Add(s));
             context.SaveChanges();
 

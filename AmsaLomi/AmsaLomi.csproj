@@ -178,8 +178,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\CountryProfilesController.cs" />
+    <Compile Include="Controllers\api\DonationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\api\MahiberPaymentsController.cs" />
+    <Compile Include="Controllers\api\MahibersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\api\PaymentsController.cs" />
+    <Compile Include="Controllers\api\RegionProfilesController.cs" />
+    <Compile Include="Controllers\api\WoredaProfilesController.cs" />
+    <Compile Include="Controllers\api\ZoneProfilesController.cs" />
     <Compile Include="Dto\Dto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
