@@ -10,7 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using AmsaLomi.Models;
 
-namespace AmsaLomi.Controllers
+namespace AmsaLomi.Controllers.Api
 {
     public class MahibersController : ApiController
     {
