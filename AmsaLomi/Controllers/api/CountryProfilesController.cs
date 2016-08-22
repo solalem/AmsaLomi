@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AmsaLomi.Models;
+using System.Web.Http.OData.Query;
+using System.Web.Http.OData;
 
 namespace AmsaLomi.Controllers.Api
 {
@@ -17,6 +19,7 @@ namespace AmsaLomi.Controllers.Api
         private AmsaLomiContext db = new AmsaLomiContext();
 
         // GET: api/CountryProfiles
+        [EnableQueryAttribute(AllowedQueryOptions = (AllowedQueryOptions.Skip | AllowedQueryOptions.Top), MaxTop = 100)]
         public IEnumerable<Dto.CountryProfile> GetCountryProfiles()
         {
             // Convert to DTO

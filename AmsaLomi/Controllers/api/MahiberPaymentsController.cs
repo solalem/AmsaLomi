@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AmsaLomi.Models;
+using System.Web.Http.OData;
+using System.Web.Http.OData.Query;
 
 namespace AmsaLomi.Controllers.Api
 {
@@ -17,6 +19,7 @@ namespace AmsaLomi.Controllers.Api
         private AmsaLomiContext db = new AmsaLomiContext();
 
         // GET: api/MahiberPayments
+        [EnableQueryAttribute(AllowedQueryOptions = (AllowedQueryOptions.Skip | AllowedQueryOptions.Top), MaxTop = 100)]
         public IEnumerable<Dto.MahiberPayment> GetMahiberPayments()
         {
             // Convert to DTO
