@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AmsaLomi.Models;
+using PagedList;
 
 namespace AmsaLomi.Controllers
 {
@@ -15,10 +16,22 @@ namespace AmsaLomi.Controllers
         private AmsaLomiContext db = new AmsaLomiContext();
 
         // GET: MahiberPayments
-        public ActionResult Index()
+        public ActionResult Index(int? page, int? size, string searchString)
         {
-            var mahiberPayments = db.MahiberPayments.Include(m => m.Mahiber).Include(m => m.Payment);
-            return View(mahiberPayments.ToList());
+            var list = (from item in db.MahiberPayments select item).Include(i => i.Mahiber).Include(m => m.Payment);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(i => i.Description.Contains(searchString)
+                || i.Mahiber.Name.Contains(searchString)
+                || i.Payment.Name.Contains(searchString));
+            }
+
+            ViewBag.searchString = searchString;
+            int pageNumber = (page ?? 1);
+            int pageSize = (size ?? 20);
+
+            return View(list.OrderBy(i => i.MahiberId).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: MahiberPayments/Details/5

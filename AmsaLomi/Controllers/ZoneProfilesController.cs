@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AmsaLomi.Models;
+using PagedList;
 
 namespace AmsaLomi.Controllers
 {
@@ -15,10 +16,21 @@ namespace AmsaLomi.Controllers
         private AmsaLomiContext db = new AmsaLomiContext();
 
         // GET: ZoneProfiles
-        public ActionResult Index()
+        public ActionResult Index(int? page, int? size, string searchString)
         {
-            var zoneProfiles = db.ZoneProfiles.Include(z => z.RegionProfile);
-            return View(zoneProfiles.ToList());
+            var list = (from item in db.ZoneProfiles select item).Include(i => i.RegionProfile);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(i => i.Name.Contains(searchString)
+                || i.Description.Contains(searchString));
+            }
+
+            ViewBag.searchString = searchString;
+            int pageNumber = (page ?? 1);
+            int pageSize = (size ?? 20);
+
+            return View(list.OrderBy(i => i.Name).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ZoneProfiles/Details/5
