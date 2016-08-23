@@ -28,6 +28,7 @@ namespace AmsaLomi.Controllers
             ViewBag.searchString = searchString;
             int pageNumber = (page ?? 1);
             int pageSize = (size ?? 20);
+            ViewBag.pageSize = pageSize;
 
             return View(list.OrderBy(i => i.Name).ToPagedList(pageNumber, pageSize));
         }

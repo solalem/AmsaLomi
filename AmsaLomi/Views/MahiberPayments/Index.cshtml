@@ -1,51 +1,31 @@
 ﻿@model IEnumerable<AmsaLomi.Models.MahiberPayment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mahiber Payments Index";
+
+    string searchString = "";
+    object obj = null;
+    bool success = ViewData.TryGetValue("searchString", out obj);
+    if (success && obj != null)
+    {
+        searchString = obj.ToString();
+    }
+
+    int pageSize = 20;
+    success = ViewData.TryGetValue("pageSize", out obj);
+    if (success && obj != null)
+    {
+        pageSize = int.Parse(obj.ToString());
+    }
+
+    ViewDataDictionary dict = new ViewDataDictionary();
+    dict.Add("parent", "index");
+    dict.Add("searchString", searchString);
+    dict.Add("pageSize", pageSize);
 }
 
-<h2>Index</h2>
+<div id="pagerContainer">
+    <h2>Mahiber Payments Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Mahiber.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Payment.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PaymentNumber)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mahiber.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Payment.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PaymentNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+    @Html.Partial("_MahiberPaymentsPartial", Model, dict)
+</div>

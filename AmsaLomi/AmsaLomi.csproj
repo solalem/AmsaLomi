@@ -329,6 +329,15 @@
     <Content Include="Views\ZoneProfiles\Details.cshtml" />
     <Content Include="Views\ZoneProfiles\Edit.cshtml" />
     <Content Include="Views\ZoneProfiles\Index.cshtml" />
+    <Content Include="Views\Shared\_CountryProfilesPartial.cshtml" />
+    <Content Include="Views\Shared\_DonationsPartial.cshtml" />
+    <Content Include="Views\Shared\_MahiberPaymentsPartial.cshtml" />
+    <Content Include="Views\Shared\_MahibersPartial.cshtml" />
+    <Content Include="Views\Shared\_PaymentsPartial.cshtml" />
+    <Content Include="Views\Shared\_RegionProfilesPartial.cshtml" />
+    <Content Include="Views\Shared\_WoredaProfilesPartial.cshtml" />
+    <Content Include="Views\Shared\_ZoneProfilesPartial.cshtml" />
+    <Content Include="Views\Shared\_AddAndSearchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

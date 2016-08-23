@@ -1,45 +1,31 @@
 ﻿@model IEnumerable<AmsaLomi.Models.Donation>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Donations Index";
+
+    string searchString = "";
+    object obj = null;
+    bool success = ViewData.TryGetValue("searchString", out obj);
+    if (success && obj != null)
+    {
+        searchString = obj.ToString();
+    }
+
+    int pageSize = 20;
+    success = ViewData.TryGetValue("pageSize", out obj);
+    if (success && obj != null)
+    {
+        pageSize = int.Parse(obj.ToString());
+    }
+
+    ViewDataDictionary dict = new ViewDataDictionary();
+    dict.Add("parent", "index");
+    dict.Add("searchString", searchString);
+    dict.Add("pageSize", pageSize);
 }
 
-<h2>Index</h2>
+<div id="pagerContainer">
+    <h2>Donations Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MahiberPayment.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrencyType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MahiberPayment.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrencyType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+    @Html.Partial("_DonationsPartial", Model, dict)
+</div>

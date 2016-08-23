@@ -124,4 +124,16 @@ namespace AmsaLomi.Models
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
     }
+
+    public class SearchObject
+    {
+        public int Id { get; set; }
+        public int SearchFor { get; set; }
+        public int AndSearchFor { get; set; }
+        public string Type { get; set; }
+        public string Format { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Brievity { get; set; }
+    }
 }
