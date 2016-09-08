@@ -18,13 +18,13 @@ namespace AmsaLomi.Controllers
         // GET: Mahibers
         public ActionResult Index(int? page, int? size, string searchString)
         {
-            var list = (from item in db.Mahibers select item).Include(i => i.WoredaProfile);
+            var list = (from item in db.Mahibers select item).Include(i => i.Place);
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 list = list.Where(i => i.Description.Contains(searchString)
                 || i.Name.Contains(searchString)
-                || i.WoredaProfile.Name.Contains(searchString));
+                || i.Place.Name.Contains(searchString));
             }
 
             ViewBag.searchString = searchString;
@@ -32,7 +32,7 @@ namespace AmsaLomi.Controllers
             int pageSize = (size ?? 20);
             ViewBag.pageSize = pageSize;
 
-            return View(list.OrderBy(i => i.WoredaProfileId).ToPagedList(pageNumber, pageSize));
+            return View(list.OrderBy(i => i.PlaceId).ToPagedList(pageNumber, pageSize));
 
         }
 
@@ -54,7 +54,7 @@ namespace AmsaLomi.Controllers
         // GET: Mahibers/Create
         public ActionResult Create()
         {
-            ViewBag.WoredaProfileId = new SelectList(db.WoredaProfiles, "Id", "Name");
+            ViewBag.PlaceId = new SelectList(db.Places, "Id", "Name");
             return View();
         }
 
@@ -63,7 +63,7 @@ namespace AmsaLomi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,WoredaProfileId")] Mahiber mahiber)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,PlaceId")] Mahiber mahiber)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace AmsaLomi.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.WoredaProfileId = new SelectList(db.WoredaProfiles, "Id", "Name", mahiber.WoredaProfileId);
+            ViewBag.PlaceId = new SelectList(db.Places, "Id", "Name", mahiber.PlaceId);
             return View(mahiber);
         }
 
@@ -88,7 +88,7 @@ namespace AmsaLomi.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.WoredaProfileId = new SelectList(db.WoredaProfiles, "Id", "Name", mahiber.WoredaProfileId);
+            ViewBag.PlaceId = new SelectList(db.Places, "Id", "Name", mahiber.PlaceId);
             return View(mahiber);
         }
 
@@ -97,7 +97,7 @@ namespace AmsaLomi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,WoredaProfileId")] Mahiber mahiber)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,PlaceId")] Mahiber mahiber)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace AmsaLomi.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.WoredaProfileId = new SelectList(db.WoredaProfiles, "Id", "Name", mahiber.WoredaProfileId);
+            ViewBag.PlaceId = new SelectList(db.Places, "Id", "Name", mahiber.PlaceId);
             return View(mahiber);
         }
 

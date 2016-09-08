@@ -1,4 +1,4 @@
-﻿@model AmsaLomi.Models.RegionProfile
+﻿@model AmsaLomi.Models.Place
 
 @{
     ViewBag.Title = "Edit";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>RegionProfile</h4>
+        <h4>Place</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -34,10 +34,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CountryProfileId, "CountryProfileId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ZoneProfileId, "ZoneProfileId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CountryProfileId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CountryProfileId, "", new { @class = "text-danger" })
+                @Html.DropDownList("ZoneProfileId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ZoneProfileId, "", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -10,27 +10,27 @@ namespace AmsaLomi.Models
         protected override void Seed(AmsaLomiContext context)
         {
             // Add Ethiopia as a country
-            var countries = new List<CountryProfile> {
-                new Models.CountryProfile() { Name = "Ethiopia", Description = "An East African nation with population about 100 million" },
-                new Models.CountryProfile() { Name = "Eritrea", Description = "An East African nation with population about 10 million" } };
-            countries.ForEach(s => context.CountryProfiles.Add(s));
+            var countries = new List<Place> {
+                new Models.Place() { Name = "Ethiopia", Description = "An East African nation with population about 100 million" },
+                new Models.Place() { Name = "Eritrea", Description = "An East African nation with population about 10 million" } };
+            countries.ForEach(s => context.Places.Add(s));
             context.SaveChanges();
 
             // Add regional states
-            var regions = new List<RegionProfile> {
-                new Models.RegionProfile() { Name = "Tigray", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Afar", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Amhara", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Oromia", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Somale", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Southern NNP", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Gambela", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Benishangul Gumuz", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Hareri", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Addis Abeba", Description = "" , CountryProfileId = 1},
-                new Models.RegionProfile() { Name = "Dire Dawa", Description = "" , CountryProfileId = 1},
+            var regions = new List<Place> {
+                new Models.Place() { Name = "Tigray", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Afar", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Amhara", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Oromia", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Somale", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Southern NNP", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Gambela", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Benishangul Gumuz", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Hareri", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Addis Abeba", Description = "" , ParentPlaceId = 1},
+                new Models.Place() { Name = "Dire Dawa", Description = "" , ParentPlaceId = 1},
             };
-            regions.ForEach(s => context.RegionProfiles.Add(s));
+            regions.ForEach(s => context.Places.Add(s));
             context.SaveChanges();
 
             // Add Regions...

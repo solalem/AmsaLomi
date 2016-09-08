@@ -11,14 +11,14 @@ using PagedList;
 
 namespace AmsaLomi.Controllers
 {
-    public class WoredaProfilesController : Controller
+    public class PlacesController : Controller
     {
         private AmsaLomiContext db = new AmsaLomiContext();
 
-        // GET: WoredaProfiles
+        // GET: Places
         public ActionResult Index(int? page, int? size, string searchString)
         {
-            var list = (from item in db.WoredaProfiles select item).Include(i => i.ZoneProfile);
+            var list = (from item in db.Places select item).Include(i => i.ParentPlace);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -34,101 +34,101 @@ namespace AmsaLomi.Controllers
             return View(list.OrderBy(i => i.Name).ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: WoredaProfiles/Details/5
+        // GET: Places/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WoredaProfile woredaProfile = db.WoredaProfiles.Find(id);
-            if (woredaProfile == null)
+            Place place = db.Places.Find(id);
+            if (place == null)
             {
                 return HttpNotFound();
             }
-            return View(woredaProfile);
+            return View(place);
         }
 
-        // GET: WoredaProfiles/Create
+        // GET: Places/Create
         public ActionResult Create()
         {
-            ViewBag.ZoneProfileId = new SelectList(db.ZoneProfiles, "Id", "Name");
+            ViewBag.ParentPlaceId = new SelectList(db.Places, "Id", "Name");
             return View();
         }
 
-        // POST: WoredaProfiles/Create
+        // POST: Places/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,ZoneProfileId")] WoredaProfile woredaProfile)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,ParentPlaceId")] Place place)
         {
             if (ModelState.IsValid)
             {
-                db.WoredaProfiles.Add(woredaProfile);
+                db.Places.Add(place);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ZoneProfileId = new SelectList(db.ZoneProfiles, "Id", "Name", woredaProfile.ZoneProfileId);
-            return View(woredaProfile);
+            ViewBag.ParentPlaceId = new SelectList(db.Places, "Id", "Name", place.ParentPlaceId);
+            return View(place);
         }
 
-        // GET: WoredaProfiles/Edit/5
+        // GET: Places/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WoredaProfile woredaProfile = db.WoredaProfiles.Find(id);
-            if (woredaProfile == null)
+            Place place = db.Places.Find(id);
+            if (place == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ZoneProfileId = new SelectList(db.ZoneProfiles, "Id", "Name", woredaProfile.ZoneProfileId);
-            return View(woredaProfile);
+            ViewBag.ParentPlaceId = new SelectList(db.Places, "Id", "Name", place.ParentPlaceId);
+            return View(place);
         }
 
-        // POST: WoredaProfiles/Edit/5
+        // POST: Places/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,ZoneProfileId")] WoredaProfile woredaProfile)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,ParentPlaceId")] Place place)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(woredaProfile).State = EntityState.Modified;
+                db.Entry(place).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ZoneProfileId = new SelectList(db.ZoneProfiles, "Id", "Name", woredaProfile.ZoneProfileId);
-            return View(woredaProfile);
+            ViewBag.ParentPlaceId = new SelectList(db.Places, "Id", "Name", place.ParentPlaceId);
+            return View(place);
         }
 
-        // GET: WoredaProfiles/Delete/5
+        // GET: Places/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WoredaProfile woredaProfile = db.WoredaProfiles.Find(id);
-            if (woredaProfile == null)
+            Place place = db.Places.Find(id);
+            if (place == null)
             {
                 return HttpNotFound();
             }
-            return View(woredaProfile);
+            return View(place);
         }
 
-        // POST: WoredaProfiles/Delete/5
+        // POST: Places/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            WoredaProfile woredaProfile = db.WoredaProfiles.Find(id);
-            db.WoredaProfiles.Remove(woredaProfile);
+            Place place = db.Places.Find(id);
+            db.Places.Remove(place);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

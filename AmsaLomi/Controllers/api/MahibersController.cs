@@ -23,7 +23,7 @@ namespace AmsaLomi.Controllers.Api
         public IEnumerable<Dto.Mahiber> GetMahibers()
         {
             // Convert to DTO
-            return Dto.Mahiber.FromBusinessEntity(db.Mahibers.Include(s => s.WoredaProfile).AsEnumerable());
+            return Dto.Mahiber.FromBusinessEntity(db.Mahibers.Include(s => s.Place).AsEnumerable());
         }
 
         // GET: api/Mahibers/5

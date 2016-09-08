@@ -202,9 +202,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Api\CountryProfilesController.cs" />
     <Compile Include="Controllers\Api\DonationsController.cs" />
-    <Compile Include="Controllers\CountryProfilesController.cs" />
     <Compile Include="Controllers\DonationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\MahiberPaymentsController.cs" />
@@ -213,13 +211,9 @@
     <Compile Include="Controllers\MahibersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Api\PaymentsController.cs" />
-    <Compile Include="Controllers\Api\RegionProfilesController.cs" />
-    <Compile Include="Controllers\Api\WoredaProfilesController.cs" />
-    <Compile Include="Controllers\Api\ZoneProfilesController.cs" />
+    <Compile Include="Controllers\Api\PlacesController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
-    <Compile Include="Controllers\RegionProfilesController.cs" />
-    <Compile Include="Controllers\WoredaProfilesController.cs" />
-    <Compile Include="Controllers\ZoneProfilesController.cs" />
+    <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Dto\Dto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -289,11 +283,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\CountryProfiles\Create.cshtml" />
-    <Content Include="Views\CountryProfiles\Delete.cshtml" />
-    <Content Include="Views\CountryProfiles\Details.cshtml" />
-    <Content Include="Views\CountryProfiles\Edit.cshtml" />
-    <Content Include="Views\CountryProfiles\Index.cshtml" />
     <Content Include="Views\Donations\Create.cshtml" />
     <Content Include="Views\Donations\Delete.cshtml" />
     <Content Include="Views\Donations\Details.cshtml" />
@@ -314,29 +303,16 @@
     <Content Include="Views\Payments\Details.cshtml" />
     <Content Include="Views\Payments\Edit.cshtml" />
     <Content Include="Views\Payments\Index.cshtml" />
-    <Content Include="Views\RegionProfiles\Create.cshtml" />
-    <Content Include="Views\RegionProfiles\Delete.cshtml" />
-    <Content Include="Views\RegionProfiles\Details.cshtml" />
-    <Content Include="Views\RegionProfiles\Edit.cshtml" />
-    <Content Include="Views\RegionProfiles\Index.cshtml" />
-    <Content Include="Views\WoredaProfiles\Create.cshtml" />
-    <Content Include="Views\WoredaProfiles\Delete.cshtml" />
-    <Content Include="Views\WoredaProfiles\Details.cshtml" />
-    <Content Include="Views\WoredaProfiles\Edit.cshtml" />
-    <Content Include="Views\WoredaProfiles\Index.cshtml" />
-    <Content Include="Views\ZoneProfiles\Create.cshtml" />
-    <Content Include="Views\ZoneProfiles\Delete.cshtml" />
-    <Content Include="Views\ZoneProfiles\Details.cshtml" />
-    <Content Include="Views\ZoneProfiles\Edit.cshtml" />
-    <Content Include="Views\ZoneProfiles\Index.cshtml" />
-    <Content Include="Views\Shared\_CountryProfilesPartial.cshtml" />
+    <Content Include="Views\Places\Create.cshtml" />
+    <Content Include="Views\Places\Delete.cshtml" />
+    <Content Include="Views\Places\Details.cshtml" />
+    <Content Include="Views\Places\Edit.cshtml" />
+    <Content Include="Views\Places\Index.cshtml" />
     <Content Include="Views\Shared\_DonationsPartial.cshtml" />
     <Content Include="Views\Shared\_MahiberPaymentsPartial.cshtml" />
     <Content Include="Views\Shared\_MahibersPartial.cshtml" />
     <Content Include="Views\Shared\_PaymentsPartial.cshtml" />
-    <Content Include="Views\Shared\_RegionProfilesPartial.cshtml" />
-    <Content Include="Views\Shared\_WoredaProfilesPartial.cshtml" />
-    <Content Include="Views\Shared\_ZoneProfilesPartial.cshtml" />
+    <Content Include="Views\Shared\_PlacesPartial.cshtml" />
     <Content Include="Views\Shared\_AddAndSearchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -9,51 +9,52 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AmsaLomi.Models;
-using System.Web.Http.OData.Query;
 using System.Web.Http.OData;
+using System.Web.Http.OData.Query;
 
 namespace AmsaLomi.Controllers.Api
 {
-    public class CountryProfilesController : ApiController
+    public class PlacesController : ApiController
     {
         private AmsaLomiContext db = new AmsaLomiContext();
 
-        // GET: api/CountryProfiles
+        // GET: api/Places
         [EnableQueryAttribute(AllowedQueryOptions = (AllowedQueryOptions.Skip | AllowedQueryOptions.Top), MaxTop = 100)]
-        public IEnumerable<Dto.CountryProfile> GetCountryProfiles()
+        public IEnumerable<Dto.Place> GetPlaces()
         {
             // Convert to DTO
-            return Dto.CountryProfile.FromBusinessEntity(db.CountryProfiles.AsEnumerable());
+            return Dto.Place.FromBusinessEntity(db.Places.Include(s => s.ParentPlace).AsEnumerable());
         }
 
-        // GET: api/CountryProfiles/5
-        [ResponseType(typeof(Dto.CountryProfile))]
-        public IHttpActionResult GetCountryProfile(int id)
+        // GET: api/Places/5
+        [ResponseType(typeof(Dto.Place))]
+        public IHttpActionResult GetPlace(int id)
         {
-            CountryProfile countryProfile = db.CountryProfiles.Find(id);
-            if (countryProfile == null)
+            Place place = db.Places.Find(id);
+            if (place == null)
             {
                 return NotFound();
             }
 
-            return Ok(Dto.CountryProfile.FromBusinessEntity(countryProfile));
+            return Ok(Dto.Place.FromBusinessEntity(place));
         }
 
-        // PUT: api/CountryProfiles/5
+        // PUT: api/Places/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCountryProfile(int id, Dto.CountryProfile countryProfile)
+        public IHttpActionResult PutPlace(int id, Dto.Place place)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != countryProfile.Id)
+            if (id != place.Id)
             {
                 return BadRequest();
             }
+
             // convert it and save
-            db.Entry(countryProfile.ToBusinessEntity()).State = EntityState.Modified;
+            db.Entry(place.ToBusinessEntity()).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +62,7 @@ namespace AmsaLomi.Controllers.Api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryProfileExists(id))
+                if (!PlaceExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +75,37 @@ namespace AmsaLomi.Controllers.Api
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/CountryProfiles
-        [ResponseType(typeof(Dto.CountryProfile))]
-        public IHttpActionResult PostCountryProfile(Dto.CountryProfile countryProfile)
+        // POST: api/Places
+        [ResponseType(typeof(Dto.Place))]
+        public IHttpActionResult PostPlace(Dto.Place place)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             // Convert and save
-            db.CountryProfiles.Add(countryProfile.ToBusinessEntity());
+            db.Places.Add(place.ToBusinessEntity());
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = countryProfile.Id }, countryProfile);
+            return CreatedAtRoute("DefaultApi", new { id = place.Id }, place);
         }
 
-        // DELETE: api/CountryProfiles/5
-        [ResponseType(typeof(Dto.CountryProfile))]
-        public IHttpActionResult DeleteCountryProfile(int id)
+        // DELETE: api/Places/5
+        [ResponseType(typeof(Dto.Place))]
+        public IHttpActionResult DeletePlace(int id)
         {
-            CountryProfile countryProfile = db.CountryProfiles.Find(id);
-            if (countryProfile == null)
+            Place place = db.Places.Find(id);
+            if (place == null)
             {
                 return NotFound();
             }
 
-            db.CountryProfiles.Remove(countryProfile);
+            db.Places.Remove(place);
             db.SaveChanges();
 
             // Return DTO
-            return Ok(Dto.CountryProfile.FromBusinessEntity(countryProfile));
+            return Ok(Dto.Place.FromBusinessEntity(place));
         }
 
         protected override void Dispose(bool disposing)
@@ -115,9 +117,9 @@ namespace AmsaLomi.Controllers.Api
             base.Dispose(disposing);
         }
 
-        private bool CountryProfileExists(int id)
+        private bool PlaceExists(int id)
         {
-            return db.CountryProfiles.Count(e => e.Id == id) > 0;
+            return db.Places.Count(e => e.Id == id) > 0;
         }
     }
 }

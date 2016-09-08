@@ -6,101 +6,28 @@ using System.Threading.Tasks;
 
 namespace AmsaLomi.Dto
 {
-    public class CountryProfile
+    public class Place
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int ParentPlaceId { get; set; }
+        public string ParentPlace { get; set; }
 
-        public static CountryProfile FromBusinessEntity(Models.CountryProfile entity)
+        public static Place FromBusinessEntity(Models.Place entity)
         {
-            return new CountryProfile { Id = entity.Id, Description = entity.Description, Name = entity.Name };
+            return new Place { Id = entity.Id, Description = entity.Description, Name = entity.Name, ParentPlace = entity.ParentPlace.Name, ParentPlaceId = entity.ParentPlaceId };
         }
 
-        public Models.CountryProfile ToBusinessEntity()
+        public Models.Place ToBusinessEntity()
         {
-            return new Models.CountryProfile { Id = this.Id, Description = this.Description, Name = this.Name };
+            return new Models.Place { Id = this.Id, Description = this.Description, Name = this.Name, ParentPlaceId = this.ParentPlaceId };
         }
 
-        public static IEnumerable<CountryProfile> FromBusinessEntity(IEnumerable<Models.CountryProfile> list)
+        public static IEnumerable<Place> FromBusinessEntity(IEnumerable<Models.Place> list)
         {
-            return (from s in list select CountryProfile.FromBusinessEntity(s)); ;
-            //return list.ConvertAll(new Converter<Models.CountryProfile, CountryProfile>(FromBusinessEntity));
-        }
-    }
-
-    public class RegionProfile
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int CountryProfileId { get; set; }
-        public string CountryProfile { get; set; }
-
-        public static RegionProfile FromBusinessEntity(Models.RegionProfile entity)
-        {
-            return new RegionProfile { Id = entity.Id, Description = entity.Description, Name = entity.Name, CountryProfile = entity.CountryProfile.Name, CountryProfileId = entity.CountryProfileId };
-        }
-
-        public Models.RegionProfile ToBusinessEntity()
-        {
-            return new Models.RegionProfile { Id = this.Id, Description = this.Description, Name = this.Name, CountryProfileId = this.CountryProfileId };
-        }
-
-        public static IEnumerable<RegionProfile> FromBusinessEntity(IEnumerable<Models.RegionProfile> list)
-        {
-            return (from s in list select RegionProfile.FromBusinessEntity(s)); ;
+            return (from s in list select Place.FromBusinessEntity(s)); ;
             //return list.ConvertAll(new Converter<Models.RegionProfile, RegionProfile>(FromBusinessEntity)); ;
-        }
-    }
-
-    public class ZoneProfile
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int RegionProfileId { get; set; }
-        public string RegionProfile { get; set; }
-
-        public static ZoneProfile FromBusinessEntity(Models.ZoneProfile entity)
-        {
-            return new ZoneProfile { Id = entity.Id, Description = entity.Description, Name = entity.Name, RegionProfile = entity.RegionProfile.Name, RegionProfileId = entity.RegionProfileId };
-        }
-
-        public Models.ZoneProfile ToBusinessEntity()
-        {
-            return new Models.ZoneProfile { Id = this.Id, Description = this.Description, Name = this.Name, RegionProfileId = this.RegionProfileId };
-        }
-
-        public static IEnumerable<ZoneProfile> FromBusinessEntity(IEnumerable<Models.ZoneProfile> list)
-        {
-            return (from s in list select ZoneProfile.FromBusinessEntity(s)); ;
-            //return list.ConvertAll(new Converter<Models.ZoneProfile, ZoneProfile>(FromBusinessEntity)); ;
-        }
-    }
-
-    public class WoredaProfile
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int ZoneProfileId { get; set; }
-        public string ZoneProfile { get; set; }
-
-        public static WoredaProfile FromBusinessEntity(Models.WoredaProfile entity)
-        {
-            return new WoredaProfile { Id = entity.Id, Description = entity.Description, Name = entity.Name, ZoneProfile = entity.ZoneProfile.Name, ZoneProfileId = entity.ZoneProfileId };
-        }
-
-        public Models.WoredaProfile ToBusinessEntity()
-        {
-            return new Models.WoredaProfile { Id = this.Id, Description = this.Description, Name = this.Name, ZoneProfileId = this.ZoneProfileId };
-        }
-
-        public static IEnumerable<WoredaProfile> FromBusinessEntity(IEnumerable<Models.WoredaProfile> list)
-        {
-            return (from s in list select WoredaProfile.FromBusinessEntity(s)); ;
-            //return list.ConvertAll(new Converter<Models.WoredaProfile, WoredaProfile>(FromBusinessEntity)); ;
         }
     }
 
@@ -109,17 +36,17 @@ namespace AmsaLomi.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int WoredaProfileId { get; set; }
-        public string WoredaProfile { get; set; }
+        public int PlaceId { get; set; }
+        public string Place { get; set; }
 
         public static Mahiber FromBusinessEntity(Models.Mahiber entity)
         {
-            return new Mahiber { Id = entity.Id, Description = entity.Description, Name = entity.Name, WoredaProfile = entity.WoredaProfile.Name, WoredaProfileId = entity.WoredaProfileId };
+            return new Mahiber { Id = entity.Id, Description = entity.Description, Name = entity.Name, Place = entity.Place.Name, PlaceId = entity.PlaceId };
         }
 
         public Models.Mahiber ToBusinessEntity()
         {
-            return new Models.Mahiber { Id = this.Id, Description = this.Description, Name = this.Name, WoredaProfileId = this.WoredaProfileId };
+            return new Models.Mahiber { Id = this.Id, Description = this.Description, Name = this.Name, PlaceId = this.PlaceId };
         }
 
         public static IEnumerable<Mahiber> FromBusinessEntity(IEnumerable<Models.Mahiber> list)
