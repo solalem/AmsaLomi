@@ -11,8 +11,8 @@ namespace AmsaLomi.Models
         {
             // Add Ethiopia as a country
             var countries = new List<Place> {
-                new Models.Place() { Name = "Ethiopia", Description = "An East African nation with population about 100 million" },
-                new Models.Place() { Name = "Eritrea", Description = "An East African nation with population about 10 million" } };
+                new Models.Place() { Name = "Ethiopia", Description = "An East African nation with population about 100 million", ParentPlaceId = null },
+                new Models.Place() { Name = "Eritrea", Description = "An East African nation with population about 10 million", ParentPlaceId = null } };
             countries.ForEach(s => context.Places.Add(s));
             context.SaveChanges();
 

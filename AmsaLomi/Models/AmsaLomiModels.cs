@@ -11,7 +11,7 @@ namespace AmsaLomi.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Type { get; set; }
-        public int ParentPlaceId { get; set; }
+        public int? ParentPlaceId { get; set; }
 
         public virtual Place ParentPlace { get; set; }
         public virtual ICollection<Place> Places { get; set; }

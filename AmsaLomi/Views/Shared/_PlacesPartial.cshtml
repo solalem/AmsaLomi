@@ -60,6 +60,14 @@
         UpdateTargetId = "pagerContainer" + parentDivId
     });
 }
+@* -----------------Add Pager Here --------------------- *@
+@if (parent == "index")
+{
+    <div class="text-right">
+        @Html.PagedListPager((PagedList.IPagedList)Model, page => Url.Action("Index", "Places", new { page, size = pageSize, searchString = searchString }), PagedListRenderOptions.PageNumbersOnly)
+    </div>
+}
+    
 @* ---------------Create New and Search------------------*@
 @{
     ViewDataDictionary dict = new ViewDataDictionary();
@@ -69,25 +77,17 @@
     dict.Add("returnUrl", returnUrl);
     dict.Add("pageNumber", pageNumber);
     dict.Add("parentId", id);
-    dict.Add("showNewButton", false);
+    dict.Add("showNewButton", true);
 }
 @Html.Partial("_AddAndSearchPartial", null, dict)
-
-@* -----------------Add Pager Here --------------------- *@
-@if (parent == "index")
-{
-    <div class="text-right">
-        @Html.PagedListPager((PagedList.IPagedList)Model, page => Url.Action("Index", "Places", new { page, size = pageSize, searchString = searchString }), PagedListRenderOptions.PageNumbersOnly)
-    </div>
-}
 
 <table class="table flat">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ZoneProfile.Name)
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.ParentPlace)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -99,18 +99,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ZoneProfile.Name)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.ParentPlace.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <a href="@Url.Action("Edit", "Woredas", new { id = item.Id, returnUrl = HttpContext.Current.Request.RawUrl })" class="btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
-                <a href="@Url.Action("Details", "Woredas", new { id = item.Id, returnUrl = HttpContext.Current.Request.RawUrl })" class="btn-sm btn-primary"><span class="glyphicon glyphicon-list"></span></a>
-                <a href="@Url.Action("Delete", "Woredas", new { id = item.Id, returnUrl = HttpContext.Current.Request.RawUrl })" class="btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+                <a href="@Url.Action("Edit", "Places", new { id = item.Id, returnUrl = HttpContext.Current.Request.RawUrl })" class="btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
+                <a href="@Url.Action("Details", "Places", new { id = item.Id, returnUrl = HttpContext.Current.Request.RawUrl })" class="btn-sm btn-primary"><span class="glyphicon glyphicon-list"></span></a>
+                <a href="@Url.Action("Delete", "Places", new { id = item.Id, returnUrl = HttpContext.Current.Request.RawUrl })" class="btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
             </td>
         </tr>
     }

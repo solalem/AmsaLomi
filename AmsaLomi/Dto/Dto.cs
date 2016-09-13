@@ -11,12 +11,12 @@ namespace AmsaLomi.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int ParentPlaceId { get; set; }
+        public int? ParentPlaceId { get; set; }
         public string ParentPlace { get; set; }
 
         public static Place FromBusinessEntity(Models.Place entity)
         {
-            return new Place { Id = entity.Id, Description = entity.Description, Name = entity.Name, ParentPlace = entity.ParentPlace.Name, ParentPlaceId = entity.ParentPlaceId };
+            return new Place { Id = entity.Id, Description = entity.Description, Name = entity.Name, ParentPlace = entity.ParentPlace == null? null : entity.ParentPlace.Name, ParentPlaceId = entity.ParentPlaceId };
         }
 
         public Models.Place ToBusinessEntity()

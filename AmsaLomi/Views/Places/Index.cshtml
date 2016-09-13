@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AmsaLomi.Models.Place>
 
 @{
-    ViewBag.Title = "Woreda Index";
+    ViewBag.Title = "Place Index";
 
     string searchString = "";
     object obj = null;
@@ -25,7 +25,7 @@
 }
 
 <div id="pagerContainer">
-    <h2>Woreda Index</h2>
+    <h2>Places Index</h2>
 
     @Html.Partial("_PlacesPartial", Model, dict)
 </div>

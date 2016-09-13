@@ -60,6 +60,14 @@
         UpdateTargetId = "pagerContainer" + parentDivId
     });
 }
+@* -----------------Add Pager Here --------------------- *@
+@if (parent == "index")
+{
+    <div class="text-right">
+        @Html.PagedListPager((PagedList.IPagedList)Model, page => Url.Action("Index", "Donations", new { page, size = pageSize, searchString = searchString }), PagedListRenderOptions.PageNumbersOnly)
+    </div>
+}
+    
 @* ---------------Create New and Search------------------*@
 @{
     ViewDataDictionary dict = new ViewDataDictionary();
@@ -69,17 +77,9 @@
     dict.Add("returnUrl", returnUrl);
     dict.Add("pageNumber", pageNumber);
     dict.Add("parentId", id);
-    dict.Add("showNewButton", false);
+    dict.Add("showNewButton", true);
 }
 @Html.Partial("_AddAndSearchPartial", null, dict)
-
-@* -----------------Add Pager Here --------------------- *@
-@if (parent == "index")
-{
-    <div class="text-right">
-        @Html.PagedListPager((PagedList.IPagedList)Model, page => Url.Action("Index", "Donations", new { page, size = pageSize, searchString = searchString }), PagedListRenderOptions.PageNumbersOnly)
-    </div>
-}
 
 <table class="table flat">
     <tr>
