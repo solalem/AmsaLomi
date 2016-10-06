@@ -22,3 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Map display area */
+.maparea {
+	padding: 50px 5px 5px 5px;
+	background-color: #ccc;
+	height: 1000px;
+}

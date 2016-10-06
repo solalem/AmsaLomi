@@ -3,14 +3,14 @@
 //});
 
 $(document).ready(function () {
-    $.getJSON("../Content/maps/ethiopia-map.json", function (data) {
+    $.getJSON("api/maps/getmap?level=1&parentname=Ethiopia", function (data) {
         drawMap(data);
     })
 });
 
 function drawMap(data) {
     // Animation speed
-    var animationSpeed = 200;
+    var animationSpeed = 300;
     // Normal style
     var style = {
         fill: "#ddd",
@@ -21,46 +21,59 @@ function drawMap(data) {
     };
     // Hover style
     var hoverStyle = {
-        fill: "#999"
+        fill: "#aaa"
     }
 
-    // Create Raphael
-    var MAP_WIDTH = 1000;
-    var MAP_HEIGHT = 1000;
+    // If there is no map return
+    var pathCount = 0;
+    if (data)
+        pathCount = data.mapItems.length;
+    if (pathCount == 0)
+        return;
 
-    map = Raphael(document.getElementById("map-div"), MAP_WIDTH, MAP_HEIGHT);
+    // Create Raphael
+    var MAP_WIDTH = "100%";
+    var MAP_HEIGHT = "100%";
+
+    // Remove previous map
+    el = document.getElementById("map-div");
+    el.childNodes.forEach(function (el) {
+        el.remove();
+    });
+
+    // Create new map
+    map = Raphael(el, MAP_WIDTH, MAP_HEIGHT);
 
     //Loop over all of the counties in the JSON file
-    var pathCount = data.paths.length;
-    data.paths.forEach(function (path) {
-        //The county's polygon definition is available at data[i][2
-        var thisPath = map.path(path.path);
+    data.mapItems.forEach(function (item) {
+        //The county's polygon definition 
+        var thisPath = map.path(item.path);
+        var cap = map.text(0, 0, item.name);
         //and its ID 
-        thisPath.id = path.id;
-        thisPath.name = path.name;
-        thisPath.type = path.type;
+        thisPath.id = item.id;
+        thisPath.name = item.name;
+        thisPath.type = item.type;
+
+        var bbox = thisPath[0].getBBox();
+        cap.translate(bbox.x + (bbox.width - cap.getBBox().width) / 2, bbox.y + (bbox.height - cap.getBBox().height) / 2);
 
         //Give the paths the appearance you want
         thisPath.attr(style);
 
         //Add event listener for mouse over
         thisPath.mouseover(function (e) {
-            var target = e.target;
-            //target.animate(hoverStyle, animationSpeed);
-            thisPath.attr(hoverStyle);
+            thisPath.animate(hoverStyle, animationSpeed);
         }, true);
 
         //Add event listener for mouse out
         thisPath.mouseout(function (e) {
-            var target = e.target;
-            //target.animate(style, animationSpeed);
-            thisPath.attr(style);
+            thisPath.animate(style, animationSpeed);
         }, true);
 
         //Add event listener for mouse click
         thisPath.click(function () {
             // Drill down on the map
-            $.getJSON("/maps/" + thisPath.name + "-map.json", function (data) {
+            $.getJSON("api/maps/getmap?level=" + (data.level + 1) + "&parentname=" + thisPath.name, function (data) {
                 drawMap(data);
             })
         }, true);
