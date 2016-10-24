@@ -14,59 +14,57 @@ using System.Web.Http.OData.Query;
 using Newtonsoft.Json;
 using System.IO;
 using System.Web;
+using GeoJSON.Net.Feature;
 
 namespace AmsaLomi.Controllers.Api
 {
     public class MapsController : ApiController
     {
         // GET: 
-        public IHttpActionResult GetMap(int level, string parentname)
+        public IHttpActionResult GetMap(string name1, string name2, string name3)
         {
             // Read map file
-            Map map = null;
-            if (level == 1)
-                map = LoadMap(HttpContext.Current.Server.MapPath(@"~\Content\maps\ethiopia-map.json"));
-            else if (level == 2)
-                map = LoadMap(HttpContext.Current.Server.MapPath(@"~\Content\maps\ethiopia2-map.json"));
-            else if (level == 3)
-                map = LoadMap(HttpContext.Current.Server.MapPath(@"~\Content\maps\ethiopia3-map.json"));
-            else
-                return null;
-
-            // Filter values
-            if (!String.IsNullOrEmpty(parentname))
-                map.mapItems = map.mapItems.Where(x => x.parentname == parentname).ToList();
+            FeatureCollection map = LoadMap(name1, name2, name3);
 
             // return
             return Json(map);
         }
 
-        private Map LoadMap(string filePath)
+        private FeatureCollection LoadMap(string name1, string name2, string name3)
         {
-            Map map = null;
+            string filePath = null, filter = null, parameter = null;
+            if (!String.IsNullOrEmpty(name3) && !name3.Equals("undefined"))
+            {
+                filePath = HttpContext.Current.Server.MapPath(@"~\Content\maps\Adm3.geojson");
+                filter = name3;
+                parameter = "NAME_2";
+            }
+            else if (!String.IsNullOrEmpty(name2) && !name2.Equals("undefined"))
+            {
+                filePath = HttpContext.Current.Server.MapPath(@"~\Content\maps\Adm2.geojson");
+                filter = name2;
+                parameter = "NAME_1";
+            }
+            else if (!String.IsNullOrEmpty(name1) && !name1.Equals("undefined"))
+            {
+                filePath = HttpContext.Current.Server.MapPath(@"~\Content\maps\Adm1.geojson");
+                filter = name1;
+                parameter = "NAME_0";
+            }
+            else
+                return null;
+
+            FeatureCollection map = new FeatureCollection();
             using (StreamReader r = new StreamReader(filePath))
             {
                 string json = r.ReadToEnd();
-                map = JsonConvert.DeserializeObject<Map>(json);
+                var feature = JsonConvert.DeserializeObject<FeatureCollection>(json, new GeoJSON.Net.Converters.MultiPolygonConverter());
+                // Filter out selected values
+                if (!String.IsNullOrEmpty(filter))
+                    map.Features.AddRange(feature.Features.Where(x => x.Properties[parameter].ToString().Equals(filter, StringComparison.CurrentCultureIgnoreCase)));
             }
+            
             return map;
-        }
-
-        private class Map
-        {
-            public string id;
-            public string name;
-            public string type;
-            public int level;
-            public List<MapItem> mapItems;
-        }
-        private class MapItem
-        {
-            public string id;
-            public string parentname;
-            public string name;
-            public string type;
-            public string path;
         }
     }
 }

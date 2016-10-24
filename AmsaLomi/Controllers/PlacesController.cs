@@ -49,6 +49,21 @@ namespace AmsaLomi.Controllers
             return View(place);
         }
 
+        // GET: Places/GetPlaceByName/Name
+        public ActionResult GetPlaceByName(string name)
+        {
+            if (name == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Place place = db.Places.Where(x=>x.Name == name).FirstOrDefault();
+            if (place == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Details", place);
+        }
+
         // GET: Places/Create
         public ActionResult Create()
         {

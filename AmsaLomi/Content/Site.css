@@ -26,6 +26,15 @@ textarea {
 /* Map display area */
 .maparea {
 	padding: 50px 5px 5px 5px;
-	background-color: #ccc;
-	height: 1000px;
+	background-color: #eeeeee;
+	text-align: center;
+}
+path {
+    stroke-width: 1px;
+    stroke: #a1e236;
+    fill: #909090;
+    cursor: pointer;
+}
+path:hover, path.highlighted {
+    fill: #788b4d;
 }
